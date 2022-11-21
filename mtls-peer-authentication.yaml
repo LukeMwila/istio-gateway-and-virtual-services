@@ -1,0 +1,41 @@
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: istio-system
+spec:   
+  mtls:
+    mode: STRICT
+--- 
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: ecommerce
+  namespace: ecommerce
+spec:  
+  mtls:
+    mode: STRICT
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: ecommerce
+  namespace: ecommerce
+spec:
+  selector:
+    matchLabels:
+      workload: ecommerce     
+  mtls:
+    mode: STRICT
+--- 
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: products-permissive
+  namespace: ecommerce
+spec:
+  selector:
+    matchLabels:
+      app: products     
+  mtls:
+    mode: PERMISSIVE
